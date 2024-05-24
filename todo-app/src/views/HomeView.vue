@@ -1,7 +1,8 @@
 <script setup>
-import { reactive } from 'vue'
 import TodoCreator from '@/components/TodoCreator.vue'
-const todo = reactive([])
+import { useTodoStore } from '@/stores/todoStore'
+
+const todoStore = useTodoStore()
 </script>
 
 <template>
@@ -10,13 +11,12 @@ const todo = reactive([])
     <TodoCreator
       @add-todo="
         (t) => {
-          console.log(t)
-          todo.push(t)
+          todoStore.addTodo(t)
         }
       "
     />
     <ul>
-      <li v-for="t in todo" :key="t">{{ t }}</li>
+      <li v-for="t in todoStore.todoList" :key="t">{{ t }}</li>
     </ul>
   </main>
 </template>
